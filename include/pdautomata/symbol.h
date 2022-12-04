@@ -12,7 +12,7 @@ class Symbol {
   inline char GetSymbol() const { return symbol_; }
   inline void SetSymbol(char new_symbol) { symbol_ = new_symbol; }
 
-  inline bool IsEmpty() { return symbol_ == '.'; }
+  inline bool IsEmpty() { return symbol_ == kEmptySymbol; }
 
  private:
   char symbol_;
