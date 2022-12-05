@@ -14,6 +14,17 @@ class Symbol {
 
   inline bool IsEmpty() { return symbol_ == kEmptySymbol; }
 
+  friend bool operator==(const Symbol& first_symbol,
+                         const Symbol& second_symbol) {
+    return first_symbol.symbol_ == second_symbol.symbol_ ||
+           first_symbol == kEmptySymbol || second_symbol == kEmptySymbol;
+  }
+  friend bool operator!=(const Symbol& first_symbol,
+                         const Symbol& second_symbol) {
+    return first_symbol.symbol_ != second_symbol.symbol_ &&
+           first_symbol != kEmptySymbol && second_symbol != kEmptySymbol;
+  }
+
  private:
   char symbol_;
 };
