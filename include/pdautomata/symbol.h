@@ -9,8 +9,8 @@ class Symbol {
 
   Symbol(char symbol);
 
-  inline char GetSymbol() const { return symbol_; }
-  inline void SetSymbol(char new_symbol) { symbol_ = new_symbol; }
+  inline char Get() const { return symbol_; }
+  inline void Set(char new_symbol) { symbol_ = new_symbol; }
 
   inline bool IsEmpty() { return symbol_ == kEmptySymbol; }
 
