@@ -13,7 +13,7 @@ class InputTape {
  public:
   InputTape(std::string input_string);
 
-  inline const Symbol& Pop() const { return symbols_tape_[position_++]; }
+  inline const Symbol& Pop() { return symbols_tape_[position_++]; }
 
   inline std::size_t GetPosition() const { return position_; }
   inline void SetPosition(std::size_t position) { position_ = position; }
