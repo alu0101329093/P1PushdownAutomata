@@ -1,8 +1,9 @@
 #ifndef P1PUSHDOWNAUTOMATA_PDAUTOMATA_INPUT_TAPE_H_
 #define P1PUSHDOWNAUTOMATA_PDAUTOMATA_INPUT_TAPE_H_
 
-#include <queue>
+#include <cstddef>
 #include <string>
+#include <vector>
 
 #include "pdautomata/symbol.h"
 
@@ -12,13 +13,16 @@ class InputTape {
  public:
   InputTape(std::string input_string);
 
-  inline void Pop() { symbols_tape_.pop(); }
-  inline const Symbol& Front() const { return symbols_tape_.front(); }
+  inline const Symbol& Pop() const { return symbols_tape_[position_++]; }
+
+  inline std::size_t GetPosition() const { return position_; }
+  inline void SetPosition(std::size_t position) { position_ = position; }
 
   inline bool IsEmpty() const { return symbols_tape_.size() == 0; }
 
  private:
-  std::queue<Symbol> symbols_tape_;
+  std::vector<Symbol> symbols_tape_;
+  std::size_t position_;
 };
 
 }  // namespace cc
