@@ -9,7 +9,6 @@ class Symbol {
  public:
   static const char kEmptySymbol = '.';
 
-  // TODO: Eliminate default
   Symbol(char symbol = ' ');
 
   inline char Get() const { return symbol_; }

@@ -19,9 +19,7 @@ int ProtectedMain(int argc, char* argv[]) {
     return EXIT_SUCCESS;
   }
 
-  // std::ifstream input_file{"./examples/Apv.txt"};
   std::ifstream input_file{argv[1]};
-  // std::ifstream input_file{"./examples/Apv-3.txt"};
   cc::PDAutomata automata;
   std::stringstream input{EliminateComments(input_file)};
   input >> automata;
@@ -31,24 +29,6 @@ int ProtectedMain(int argc, char* argv[]) {
   std::cout << input_string << ": "
             << (automata.Execute(input_string) ? "Success" : "Fail")
             << std::endl;
-  // // std::cout << "aab: " << (automata.Execute("aab") ? "Success" : "Fail")
-  // //           << std::endl;
-  // // std::cout << "aabab: " << (automata.Execute("aab") ? "Success" : "Fail")
-  // //           << std::endl;
-  // // std::cout << "bbaa: " << (automata.Execute("aab") ? "Success" : "Fail")
-  // //           << std::endl;
-  // // std::cout << ": " << (automata.Execute("") ? "Success" : "Fail") <<
-  // // std::endl;
-  // std::cout << "0110: " << (automata.Execute("0110") ? "Success" : "Fail")
-  //           << std::endl;
-  // std::cout << "001: " << (automata.Execute("001") ? "Success" : "Fail")
-  //           << std::endl;
-  // std::cout << "011: " << (automata.Execute("001") ? "Success" : "Fail")
-  //           << std::endl;
-  // std::cout << "1111: " << (automata.Execute("1111") ? "Success" : "Fail")
-  //           << std::endl;
-  // std::cout << "1001: " << (automata.Execute("1001") ? "Success" : "Fail")
-  //           << std::endl;
 
   return EXIT_SUCCESS;
 }

@@ -41,9 +41,6 @@ class TransitionTable {
     std::vector<Symbol> symbols_to_stack{};
     while (std::getline(is, line)) {
       if (line.length() == 0) continue;
-      // input.clear();
-      // input.ignore();
-      // input.str(line);
       std::stringstream input{line};
       input >> from_state;
       input >> input_tape_symbol;

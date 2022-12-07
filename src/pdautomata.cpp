@@ -1,5 +1,7 @@
 #include "pdautomata/pdautomata.h"
 
+#include "pdautomata.h"
+
 namespace cc {
 
 bool PDAutomata::Execute(const std::string& input) const {
@@ -28,7 +30,9 @@ bool PDAutomata::Execute(const std::string& input) const {
     }
 
     if (input_tape.IsEmpty()) {
-      if (stack.IsEmpty()) return true;
+      if (stack.IsEmpty()) {
+        return true;
+      }
       if (!return_cases.empty()) {
         ReturnCase return_case{return_cases.top()};
         return_cases.pop();
@@ -87,4 +91,43 @@ std::vector<Symbol> PDAutomata::GetSymbols(std::istream& is) {
   return symbols;
 }
 
+TransitionTable PDAutomata::GetTransitionTable(std::istream& is) {
+  TransitionTable table{};
+  std::string line;
+  std::istringstream input{};
+  State from_state;
+  Symbol input_tape_symbol;
+  Symbol stack_symbol;
+  State to_state;
+  Symbol symbol_to_stack;
+  std::vector<Symbol> symbols_to_stack{};
+  while (std::getline(is, line)) {
+    if (line.length() == 0) continue;
+    std::stringstream input{line};
+    input >> from_state;
+    if (std::find(states_.begin(), states_.end(), from_state) == states_.end())
+      throw InputException{"State", from_state.GetName()};
+    input >> input_tape_symbol;
+    if (!input_tape_symbol.IsEmpty() &&
+        std::find(input_tape_symbols_.begin(), input_tape_symbols_.end(),
+                  input_tape_symbol) == input_tape_symbols_.end())
+      throw InputException{"Symbol", {input_tape_symbol.Get()}};
+    input >> stack_symbol;
+    if (std::find(stack_symbols_.begin(), stack_symbols_.end(), stack_symbol) ==
+        stack_symbols_.end())
+      throw InputException{"Symbol", {stack_symbol.Get()}};
+    TransitionInput transition_input{from_state, stack_symbol};
+    input >> to_state;
+    if (std::find(states_.begin(), states_.end(), to_state) == states_.end())
+      throw InputException{"State", to_state.GetName()};
+    symbols_to_stack.clear();
+    while (input >> symbol_to_stack) {
+      symbols_to_stack.push_back(symbol_to_stack);
+    }
+    TransitionOutput transition_output{to_state, symbols_to_stack};
+    table.SetTransition(from_state, input_tape_symbol, stack_symbol, to_state,
+                        symbols_to_stack);
+  }
+  return table;
+}
 }  // namespace cc

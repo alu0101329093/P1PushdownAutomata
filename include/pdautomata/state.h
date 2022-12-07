@@ -8,7 +8,6 @@ namespace cc {
 
 class State {
  public:
-  // TODO: Eliminate default
   State(const std::string& name = "");
 
   inline const std::string& GetName() const { return name_; }

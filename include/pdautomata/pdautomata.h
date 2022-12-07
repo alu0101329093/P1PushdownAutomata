@@ -23,20 +23,19 @@ class PDAutomata {
   bool Execute(const std::string& input) const;
 
   friend std::istream& operator>>(std::istream& is, PDAutomata& automata) {
-    std::vector<State> states{PDAutomata::GetStates(is)};
+    automata.states_ = PDAutomata::GetStates(is);
     automata.input_tape_symbols_ = PDAutomata::GetSymbols(is);
-    // std::vector<Symbol> input_tape_symbol{};
-    std::vector<Symbol> stack_symbol{PDAutomata::GetSymbols(is)};
+    automata.stack_symbols_ = PDAutomata::GetSymbols(is);
     is >> automata.initial_state_;
-    if (std::find(states.begin(), states.end(), automata.initial_state_) ==
-        states.end())
+    if (std::find(automata.states_.begin(), automata.states_.end(),
+                  automata.initial_state_) == automata.states_.end())
       throw InputException{"State", automata.initial_state_.GetName()};
     is >> automata.initial_stack_symbol_;
-    if (std::find(stack_symbol.begin(), stack_symbol.end(),
-                  automata.initial_stack_symbol_) == stack_symbol.end())
-      throw InputException{"Symbol",
-                               {automata.initial_stack_symbol_.Get()}};
-    is >> automata.transition_table_;
+    if (std::find(
+            automata.stack_symbols_.begin(), automata.stack_symbols_.end(),
+            automata.initial_stack_symbol_) == automata.stack_symbols_.end())
+      throw InputException{"Symbol", {automata.initial_stack_symbol_.Get()}};
+    automata.transition_table_ = automata.GetTransitionTable(is);
 
     return is;
   }
@@ -44,9 +43,12 @@ class PDAutomata {
  private:
   static std::vector<State> GetStates(std::istream& is);
   static std::vector<Symbol> GetSymbols(std::istream& is);
+  TransitionTable GetTransitionTable(std::istream& is);
 
-  State initial_state_;
+  std::vector<State> states_;
   std::vector<Symbol> input_tape_symbols_;
+  std::vector<Symbol> stack_symbols_;
+  State initial_state_;
   Symbol initial_stack_symbol_;
   TransitionTable transition_table_;
 };
