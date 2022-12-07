@@ -1,4 +1,4 @@
-#include "transition_output.h"
+#include "pdautomata/transition_output.h"
 
 namespace cc {
 
