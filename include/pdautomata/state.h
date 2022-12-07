@@ -15,6 +15,12 @@ class State {
   friend bool operator!=(const State& first_state, const State& second_state) {
     return first_state.name_ != second_state.name_;
   }
+  friend bool operator<(const State& first_state, const State& second_state) {
+    return first_state.name_ < second_state.name_;
+  }
+  friend bool operator>(const State& first_state, const State& second_state) {
+    return first_state.name_ > second_state.name_;
+  }
 
  private:
   std::string name_;
