@@ -10,8 +10,8 @@ namespace cc {
 
 class TransitionOutput {
  public:
-  TransitionOutput(const State& state,
-                   const std::vector<Symbol>& stack_symbols);
+  TransitionOutput(const State& state = {},
+                   const std::vector<Symbol>& symbols_to_stack = {});
 
   inline const State& GetState() const { return state_; }
   inline void SetState(const State& state) { state_ = state; }

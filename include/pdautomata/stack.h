@@ -14,10 +14,12 @@ class Stack {
  public:
   Stack(const Symbol& initial_symbol);
 
-  Symbol Get();
+  inline void Pop() { symbols_stack_.pop(); }
+  inline Symbol Top() { return symbols_stack_.top(); }
+
   void Push(const std::vector<Symbol>& new_symbols);
 
-  inline bool IsEmpty() const { symbols_stack_.empty(); }
+  inline bool IsEmpty() const { return symbols_stack_.empty(); }
 
  private:
   std::stack<Symbol> symbols_stack_;
