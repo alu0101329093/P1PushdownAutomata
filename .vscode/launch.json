@@ -6,6 +6,7 @@
             "type": "cppdbg",
             "request": "launch",
             "args": [
+                "examples/APv.txt"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

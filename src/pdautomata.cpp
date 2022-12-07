@@ -8,6 +8,13 @@ bool PDAutomata::Execute(const std::string& input) const {
   Stack stack{initial_stack_symbol_};
   std::stack<ReturnCase> return_cases{};
   while (!(stack.IsEmpty() && return_cases.empty())) {
+    if (stack.IsEmpty()) {
+      ReturnCase return_case{return_cases.top()};
+      return_cases.pop();
+      stack = return_case.GetStack();
+      state.SetName(return_case.GetState().GetName());
+      input_tape.SetPosition(return_case.GetInputTapePosition());
+    }
     Symbol stack_symbol{stack.Top()};
     std::vector<TransitionOutput> epsilon_transitions{
         transition_table_.GetEpsilonTransitions(state, stack_symbol)};
@@ -19,12 +26,19 @@ bool PDAutomata::Execute(const std::string& input) const {
                              return_stack};
       return_cases.push(return_case);
     }
-    if (input_tape.IsEmpty() && !stack.IsEmpty() && !return_cases.empty()) {
-      ReturnCase return_case{return_cases.top()};
-      return_cases.pop();
-      stack = return_case.GetStack();
-      state.SetName(return_case.GetState().GetName());
-      input_tape.SetPosition(return_case.GetInputTapePosition());
+
+    if (input_tape.IsEmpty()) {
+      if (stack.IsEmpty()) return true;
+      if (!return_cases.empty()) {
+        ReturnCase return_case{return_cases.top()};
+        return_cases.pop();
+        stack = return_case.GetStack();
+        state.SetName(return_case.GetState().GetName());
+        input_tape.SetPosition(return_case.GetInputTapePosition());
+        if (input_tape.IsEmpty() && stack.IsEmpty()) return true;
+      } else {
+        return false;
+      }
     } else {
       Symbol input_symbol{input_tape.Pop()};
       std::optional<TransitionOutput> transition{
@@ -33,8 +47,14 @@ bool PDAutomata::Execute(const std::string& input) const {
         state.SetName(transition->GetState().GetName());
         stack.Pop();
         stack.Push(transition->GetStackSymbols());
+      } else if (!return_cases.empty()) {
+        ReturnCase return_case{return_cases.top()};
+        return_cases.pop();
+        stack = return_case.GetStack();
+        state.SetName(return_case.GetState().GetName());
+        input_tape.SetPosition(return_case.GetInputTapePosition());
       }
-      if (stack.IsEmpty() && input_tape.IsEmpty()) return true;
+      if (input_tape.IsEmpty() && stack.IsEmpty()) return true;
     }
   }
 
