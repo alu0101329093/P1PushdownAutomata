@@ -16,13 +16,19 @@ class Symbol {
 
   friend bool operator==(const Symbol& first_symbol,
                          const Symbol& second_symbol) {
-    return first_symbol.symbol_ == second_symbol.symbol_ ||
-           first_symbol == kEmptySymbol || second_symbol == kEmptySymbol;
+    return first_symbol.symbol_ == second_symbol.symbol_;
   }
   friend bool operator!=(const Symbol& first_symbol,
                          const Symbol& second_symbol) {
-    return first_symbol.symbol_ != second_symbol.symbol_ &&
-           first_symbol != kEmptySymbol && second_symbol != kEmptySymbol;
+    return first_symbol.symbol_ != second_symbol.symbol_;
+  }
+  friend bool operator<(const Symbol& first_symbol,
+                        const Symbol& second_symbol) {
+    return first_symbol.symbol_ < second_symbol.symbol_;
+  }
+  friend bool operator>(const Symbol& first_symbol,
+                        const Symbol& second_symbol) {
+    return first_symbol.symbol_ > second_symbol.symbol_;
   }
 
  private:
