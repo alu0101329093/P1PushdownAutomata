@@ -7,7 +7,7 @@ namespace cc {
 InputTape::InputTape(std::string input_string) : symbols_tape_{} {
   for (auto symbol : input_string) {
     if (symbol != ' ') {
-      symbols_tape_.push(Symbol{symbol});
+      symbols_tape_.push_back(Symbol{symbol});
     }
   }
 }

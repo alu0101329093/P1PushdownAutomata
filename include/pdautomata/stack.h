@@ -1,6 +1,7 @@
-#ifndef P1PUSHDOWNAUTOMATA_PDAUTOMATA_INPUT_TAPE_H_
-#define P1PUSHDOWNAUTOMATA_PDAUTOMATA_INPUT_TAPE_H_
+#ifndef P1PUSHDOWNAUTOMATA_PDAUTOMATA_STACK_H_
+#define P1PUSHDOWNAUTOMATA_PDAUTOMATA_STACK_H_
 
+#include <cstddef>
 #include <ranges>
 #include <stack>
 #include <vector>
@@ -22,4 +23,4 @@ class Stack {
 
 }  // namespace cc
 
-#endif  // P1PUSHDOWNAUTOMATA_PDAUTOMATA_INPUT_TAPE_H_
+#endif  // P1PUSHDOWNAUTOMATA_PDAUTOMATA_STACK_H_

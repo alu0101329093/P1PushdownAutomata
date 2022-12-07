@@ -7,7 +7,7 @@
 CXX = g++
 
 # define any compile-time flags
-CXXFLAGS	:= -std=c++2a -Wall -Wextra -ggdb
+CXXFLAGS	:= -std=c++17 -Wall -Wextra -ggdb
 
 # define library paths in addition to /usr/lib
 #   if I wanted to include libraries not in /usr/lib I'd specify

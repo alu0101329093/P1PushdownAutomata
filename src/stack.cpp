@@ -1,4 +1,4 @@
-#include "stack.h"
+#include "pdautomata/stack.h"
 
 namespace cc {
 
@@ -11,8 +11,8 @@ Symbol Stack::Get() {
 }
 
 void Stack::Push(const std::vector<Symbol>& new_symbols) {
-  for (auto symbol : new_symbols | std::views::reverse) {
-    symbols_stack_.push(symbol);
+  for (std::size_t i = new_symbols.size(); i > 0; --i) {
+    symbols_stack_.push(new_symbols[i - 1]);
   }
 }
 
