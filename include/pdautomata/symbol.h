@@ -12,7 +12,7 @@ class Symbol {
   inline char Get() const { return symbol_; }
   inline void Set(char new_symbol) { symbol_ = new_symbol; }
 
-  inline bool IsEmpty() { return symbol_ == kEmptySymbol; }
+  inline bool IsEmpty() const { return symbol_ == kEmptySymbol; }
 
   friend bool operator==(const Symbol& first_symbol,
                          const Symbol& second_symbol) {
