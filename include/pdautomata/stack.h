@@ -17,6 +17,8 @@ class Stack {
   Symbol Get();
   void Push(const std::vector<Symbol>& new_symbols);
 
+  inline bool IsEmpty() const { symbols_stack_.empty(); }
+
  private:
   std::stack<Symbol> symbols_stack_;
 };

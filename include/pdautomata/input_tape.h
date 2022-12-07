@@ -18,7 +18,7 @@ class InputTape {
   inline std::size_t GetPosition() const { return position_; }
   inline void SetPosition(std::size_t position) { position_ = position; }
 
-  inline bool IsEmpty() const { return symbols_tape_.size() == 0; }
+  inline bool IsEmpty() const { return symbols_tape_.empty(); }
 
  private:
   std::vector<Symbol> symbols_tape_;
